@@ -4,10 +4,10 @@
 (function() {
 
     var structure = [{
-        href: '#home',
+        href: 'home',
         name: 'Home'
     }, {
-        href: '#about',
+        href: 'about',
         name: 'About'
     }];
 
@@ -18,6 +18,14 @@
                 items: structure
             });
             $('#menu-container').empty().append(templateHtml);
+
+            $('#menu-container a').click(function(event) {
+                event.preventDefault();
+
+                Backbone.history.navigate($(event.target).attr('href'), {
+                    trigger: true
+                });
+            });
         }
     };
 
