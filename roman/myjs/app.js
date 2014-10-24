@@ -6,8 +6,8 @@
       var Workspace = Backbone.Router.extend({
 
         routes: {
-          "#": "homeAction",
-          "#about": "aboutAction"
+          "": "homeAction",
+          "about": "aboutAction"
         },
 
         homeAction: function() {
