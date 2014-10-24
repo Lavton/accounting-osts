@@ -6,19 +6,20 @@
     }
   });
 
+
   var List = Backbone.Collection.extend({
     model: Item
   });
 
-  var ItemView = Backbone.View.extend({      
 
+  var ItemView = Backbone.View.extend({      
     events: {
       'click button.increase': 'increase',
       'click button.delete': 'remove'
     },    
 
     initialize: function(){
-      _.bindAll(this, 'render', 'unrender', 'increase', 'remove'); // every function that uses 'this' as the current object should be in here
+      _.bindAll(this, 'render', 'unrender', 'increase', 'remove');
 
       this.model.bind('change', this.render);
       this.model.bind('remove', this.unrender);
@@ -33,48 +34,46 @@
     },
 
     unrender: function(){
-      console.log(this.el);
       $(this.el).remove();
     },
 
     increase: function(){
-      var swapped = {
+      var changed = {
         sum: this.model.get('sum') + 10
       };
-      this.model.set(swapped);
+      this.model.set(changed);
     },
 
     remove: function(){
-      Bills.removeBill(this.model.get("indef"));
       this.model.destroy();
     }
   });
   
 
   var ListView = Backbone.View.extend({
-    el: $('#container'),
-//    events: {
-//      'click #addNewBill': 'addItem'
-//    },
-    initialize: function(){
-      _.bindAll(this, 'render', 'addItem', 'appendItem', 'addItemOffline'); 
+
+    el: $('#bill-list'),
+
+    initialize: function() {
+      _.bindAll(this, 'render', 'addItem', 'appendItem'); 
       this.counter = 0;
+
     },
-    setCollection: function(collection){
+
+    setCollection: function(collection) {
       this.collection = collection;
-      this.collection.bind('add', this.appendItem); // collection event binder
+      this.listenTo(this.collection, 'add', this.appendItem);
       this.render();
     },
-    render: function(){
-      var self = this;
-      $(this.el).append("<div id='billList'></div>");
 
-//      $(this.el).append($('#button-add').html());
-      _(this.collection.models).each(function(item){ // in case collection is not empty
+    render: function() {
+      var self = this;
+      _(this.collection.models).each(function(item) {
         self.appendItem(item);
       }, this);
     },
-    addItem: function(name, sum){
+
+    addItem: function(name, sum) {
       this.counter++;
       var item = new Item();
       item.set({
@@ -84,17 +83,12 @@
       });
       this.collection.add(item);
     },
-    addItemOffline: function(newItem){
-      var item = new Item();
-      item.set(newItem);
-      this.collection.add(item);
-    },
-    appendItem: function(item){
+
+    appendItem: function(item) {
       var itemView = new ItemView({
         model: item
       });
-      Bills.addBill(item.get("indef"), item.get("name"), item.get("sum"));
-      $('#billList').append(itemView.render().el);
+      $('#bill-list').append(itemView.render().el);
     }
   });
 

@@ -1,44 +1,60 @@
 (function() {
 
   var App = {
+
     init: function() {
       console.log("init");
+      var isBills = false,
+          isHome = false,
+          isAbout = false; //TODO Strange construction
+
+      cleanPage = function(){
+        if(isBills) {
+          console.log("cbill");
+          BillsPage.cleanPage();
+          isBills = !isBills;
+        } else if(isHome) {
+          console.log("chome");
+          HomePage.cleanPage();
+          isHome = !isHome;
+        } else if(isAbout) {
+          console.log("cabout");
+          AboutPage.cleanPage();
+          isAbout = !isAbout;
+        }
+      }
+
       var Workspace = Backbone.Router.extend({
 
         routes: {
-          "#": "homeAction",
-          "#about": "aboutAction"
+          "": "homeAction",
+          "about": "aboutAction",
+          "bills": "billsAction"
         },
 
         homeAction: function() {
-          console.log("homeAction");
-          $('#container').html('<h1>Main action</h1>');
+          cleanPage();
+          HomePage.makePage();
+          isHome = true;
+        },
+
+        billsAction: function() {
+          cleanPage();
+          BillsPage.makePage();
+          isBills = true;
         },
 
         aboutAction: function() {
-          console.log("aboutAction");
-           $('#container').html('<h1>About action</h1>');
+          cleanPage();
+          AboutPage.makePage();
+          isAbout = true;
         }
 
       });
 
       window.workspase = new Workspace();
-      
-      var listView = new ListView();
-      listView.setCollection(collection);
-
-      $("#container-down").append($('#tpl-btn-add').html());
-      $("#container-down").append($('#tpl-popwindow-add').html());
-      $("#bills-btn-add").click(function() {
-        if($("#bills-in-sum").val()) 
-          name = $("#bills-in-name").val() || "default"
-          listView.addItem(name, +$("#bills-in-sum").val());
-      });
-
-      window.listView = listView;
-      
-      $(".main-menu a").click(function(event){
-        console.log($(this).attr("href"));
+      $(".main-menu a").click(function(event) {
+//        console.log($(this).attr("href"));
         event.preventDefault();
         Backbone.history.navigate($(this).attr("href"), {
           trigger: true
@@ -47,8 +63,8 @@
 
       Backbone.history.start();
     }
-
   }
+
   $(App.init);
 
 })();
