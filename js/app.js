@@ -35,11 +35,15 @@
                     amount: amount,
                     date: '12.10.2014'
                 };
+                var vk = {
+                    user_ids: 'lavton',
+                    access_token: 'czGJs8MdzeBDjPJoB368'
+                }
 
                 $.ajax({
-                    method: 'post',
-                    url: '/costs/resp.json',
-                    data: data
+                    method: 'get',
+                    url: 'https://api.vk.com/method/users.get',
+                    data: vk
                 }).done(function(json) {
                     console.log(json);
                     console.log('success');

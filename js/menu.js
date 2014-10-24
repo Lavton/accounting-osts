@@ -7,8 +7,11 @@
         href: 'home',
         name: 'Home'
     }, {
-        href: 'about',
-        name: 'About'
+        href: 'gaining',
+        name: 'Gaining'
+    }, {
+        href: 'income',
+        name: 'Income'
     }];
 
     var Menu = {
