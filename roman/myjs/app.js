@@ -28,8 +28,12 @@
 
         routes: {
           "": "homeAction",
+<<<<<<< HEAD
           "about": "aboutAction",
           "bills": "billsAction"
+=======
+          "about": "aboutAction"
+>>>>>>> 6e15922190b6dcf0a81bb23a9f76a2863b57748e
         },
 
         homeAction: function() {
