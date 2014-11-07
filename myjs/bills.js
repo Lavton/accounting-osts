@@ -8,30 +8,24 @@
     init: function(){
       data = {
         var2: {
-          id: 0,
-          name: "salary",
-          sum: 0
+          indef: "var2",
+          name: "bill_1",
+          sum: 187
         },
         var3: {
-          id: 1,
-          name: "nowhere",
-          sum: 9999999,
-          visible: false
+          indef: "var3",
+          name: "bill_2",
+          sum: 1543
         },
         var5: {
-          id: 2,
-          name: "products",
-          sum: 0
-        },
-        var6: {
-          id: 4,
-          name: "public utilities",
-          sum: 0
+          indef: "var5",
+          name: "bill_3",
+          sum: 142300
         },
         var7: {
-          id: 3,
-          name: "perquisite",
-          sum: 0
+          indef: "var7",
+          name: "bill_4",
+          sum: 999
         }
       };
 
@@ -39,9 +33,10 @@
     },
 
     makeCollection: function() {
-      var collection = new BillCollection();
+      
+      var collection = new BillList();
       _(data).each(function(item){
-        var it = new BillModel();
+        var it = new Bill();
         it.set(item);
         collection.add(it);
       })
@@ -58,7 +53,7 @@
         console.log("del " + obj.get("indef") + " " + obj.get("name") + " " + obj.get("sum"));
       });
 
-      window.collection = collection;
+      window.billsCollection = collection;
     },
 
     print: function(){

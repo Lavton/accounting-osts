@@ -10,16 +10,16 @@ app.use(express.static(path.join(__dirname, '..')));
 
 app.get('/*', function (req, res) {
 
-//    fs.readFile(path.join(__dirname, '..', 'index.html'), 'utf-8', function(err, data) {
-//       if (err) {
-//           return;
-//       }
-//        res.send(data);
-//    });
-
-    indexGenerator.index(function(html) {
-        res.send(html);
+    fs.readFile(path.join(__dirname, '..', 'index.html'), 'utf-8', function(err, data) {
+       if (err) {
+           return;
+       }
+        res.send(data);
     });
+
+//    indexGenerator.index(function(html) {
+  //      res.send(html);
+   // });
 
 });
 

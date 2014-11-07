@@ -5,7 +5,6 @@
   var TransactionModel = Backbone.Model.extend({
     defaults: {
       sum: 0,
-//      id: 0,
       id_from: 0,
       id_to: 0
     },
@@ -14,17 +13,6 @@
   var TransactionCollection = Backbone.Collection.extend({
     Model: TransactionModel,
     url: "#"
-  });
-
-
-  var BillModel = Backbone.Model.extend({
-    defaults: {
-      sum: 0,
-      visible: true,
-      id: 0,
-      parent_id: 0,
-      name: "Hello"
-    }
   });
 
   var CategoryModel = Backbone.Model.extend();
@@ -62,84 +50,19 @@
 
   })
 
-  var BillCollection = Backbone.Collection.extend({
-    model: BillModel,
-    url: "#"
-  });
-
-  var BillView = Backbone.View.extend({
-    events: {
-      'click' : 'change_bill'
-    },
-    initialize: function(){
-      _.bindAll(this, 'render', 'unrender', 'change_bill', 'remove');
-
-      this.model.bind('change', this.render);
-      this.model.bind('remove', this.unrender);
-    },
-    render: function(){
-      $(this.el).html("<li>"+this.model.get('name')+"</li>")
-      return this;
-    },
-
-    unrender: function(){
-      $(this.el).remove();
-    },
-
-    change_bill: function(){
-      console.log("hi");
-    }
-  });
-
-  var BillListView = Backbone.View.extend({
-//    el: $('#bill-list'),
-
-    initialize: function() {
-      _.bindAll(this, 'render'); 
-      this.counter = 0;
-
-    },
-
-    setCollection: function(collection) {
-      this.collection = collection;
-      console.log("setCollection")
-//      this.listenTo(this.collection, 'add', this.appendItem);
-      this.render();
-    },
-
-    render: function() {
-      var self = this;
-      console.log("render")
-      console.log(this.el)
-      $(this.el).append("<h1>HELLOOOOOOOOOOOOO</h1>")
-   /*   _(this.collection.models).each(function(item) {
-        self.appendItem(item);
-      }, this);*/
-      $(this.el).append("<ul> <li>hello world</li> </ul>");
-    //  $('#bill-list').append(this.el);
-    },
-    appendItem: function(item){
-      var billView = new BillView({
-        model: item
-      });
-      $('ul', this.el).append(billView.render().el); //?????
-    }
-  });
-
-
-  var Item = Backbone.Model.extend({
+  var Bill = Backbone.Model.extend({
     defaults: {
       sum: 0
     }
   });
 
 
-  var List = Backbone.Collection.extend({
-    model: Item
+  var BillList = Backbone.Collection.extend({
+    model: Bill
   });
 
 
-  var ItemView = Backbone.View.extend({      
+  var BillView = Backbone.View.extend({      
     events: {
       'click button.increase': 'increase',
       'click button.delete': 'remove'
@@ -178,9 +101,9 @@
   });
   
 
-  var ListView = Backbone.View.extend({
+  var BillListView = Backbone.View.extend({
 
-    el: $('#bill-list-old'),
+    el: $('#bill-list'),
 
     initialize: function() {
       _.bindAll(this, 'render', 'addItem', 'appendItem'); 
@@ -220,18 +143,14 @@
     }
   });
 
-  window.BillView = BillView;
-  window.BillListView = BillListView;
-  window.BillCollection = BillCollection;
-  window.BillModel = BillModel;
   window.CategoryModel = CategoryModel;
   window.CategoryCollection = CategoryCollection;
   window.CategoriesView = CategoriesView;
 
-  window.Item = Item;
-  window.List = List;
-  window.ItemView = ItemView;
-  window.ListView = ListView;
+  window.Bill = Bill;
+  window.BillList = BillList;
+  window.BillView = BillView;
+  window.BillListView = BillListView;
   window.TransactionModel = TransactionModel;
 
 })();

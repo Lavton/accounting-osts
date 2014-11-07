@@ -4,14 +4,10 @@
   var Controller = {
 
     makePage: function(){
-      $("#container").append("<div id='bill-list'></div>");
-      $("#bill-list").append("<h1>HELLO</h1>");
       var listView = new BillListView();
-      $('#bill-list').append(listView.el)
-      //$("#container").append("<div id='bill-list-old'></div>");
+      $("#container").append("<div id='bill-list'></div>");
       this.listView = listView;
-      console.log("make page")
-      listView.setCollection(collection);
+      listView.setCollection(billsCollection);
 
       $("#container-down").append($('#tpl-btn-add').html());
       $("#container-down").append($('#tpl-popwindow-add').html());
@@ -21,11 +17,12 @@
           listView.addItem(name, +$("#bills-in-sum").val());
       });
     },
+
     cleanPage: function(){
       this.listView.unbind();
       this.listView.stopListening();
       this.listView.remove();
-      $("#container").html("");
+      $(".content").html("");
     }
   }
 
