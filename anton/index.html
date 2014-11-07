@@ -2,14 +2,38 @@
 <html>
 
 <head lang="en">
+
+    <link rel="shortcut icon" href="images/1c_coin.jpg" type="image/vnd.microsoft.icon" />
     <meta charset="UTF-8">
-    <title></title>
+    <title>Account-ost</title>
+    <link href="css/st_jstree.css" rel="stylesheet" /> 
     <link href="css/bootstrap.css" rel="stylesheet"/>
-    <link href="css/bootstrap-theme.css" rel="stylesheet">
-    <link href="starter-template.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="starter-template.css" rel="stylesheet"/>
 </head>
 
 <body>  
+
+
+
+<div id="jstree">
+    <!-- in this example the tree is populated from inline HTML -->
+    <ul>
+      <li>Root node 1
+        <ul>
+          <li id="child_node_1">Child node 1</li>
+          <li>Child node 2</li>
+        </ul>
+      </li>
+      <li>Root node 2</li>
+    </ul>
+  </div>
+  <button id="bbbb">demo button</button>
+
+
+
+
+
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -43,17 +67,6 @@
       </div>
     </div>
 
-<!--
-    <div class="container">
-
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-
-    </div>
--->
-
 <div class="container content" id="container-up"></div>
 <div class="container content" id="container"></div>
 <div class="container content" id="container-down"></div>
@@ -64,6 +77,8 @@
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/underscore.js"></script>
 <script type="text/javascript" src="js/backbone.js"></script>
+<script type="text/javascript" src="js/jstree.js"></script>
+
 
 <script type="text/template" id="tpl-btn-add">
   <div class='row'>
@@ -122,7 +137,7 @@
   </div>
 </script>
 
-<div type="text/template" id="home_html" style="display:none">
+<script type="text/template" id="home_html">
   <div id="gain_button">
     <input type="text" placeholder="add gain" class="gain_amount" id="pre_num_gain"/>
     <button class="btn btn-info add btn-primary btn-lg" data-toggle="modal" data-target="#gainModel">>Add</button>
@@ -145,6 +160,9 @@
       </div>
     </div>
   </div>
+</script>
+
+<div id="bills_home" style="display:none">
 </div>
 
 <script type="text/javascript" src="myjs/mvc.js"></script>
@@ -155,6 +173,21 @@
 <script type="text/javascript" src="myjs/page/aboutPage.js"></script>
 
 <script type="text/javascript" src="myjs/app.js"></script>
+
+<script>
+$(function () { 
+  $('#jstree').jstree(); 
+});
+$('#jstree').on("changed.jstree", function (e, data) {
+  console.log(data.selected);
+});
+$('button#bbbb').on('click', function () {
+  $('#jstree').jstree(true).select_node('child_node_1');
+  $('#jstree').jstree('select_node', 'child_node_1');
+  $.jstree.reference('#jstree').select_node('child_node_1');
+});
+
+</script>
 
 
 </body>
