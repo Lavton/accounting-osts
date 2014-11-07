@@ -126,7 +126,7 @@
 
     addItem: function(name, sum) {
       this.counter++;
-      var item = new Item();
+      var item = new Bill();
       item.set({
         indef: "Bill" + this.counter, 
         name: name,
@@ -136,7 +136,7 @@
     },
 
     appendItem: function(item) {
-      var itemView = new ItemView({
+      var itemView = new BillView({
         model: item
       });
       $('#bill-list').append(itemView.render().el);
