@@ -1,8 +1,5 @@
 (function(){
 
-
-  var data = null;
-
   var Controller = {
 
     init: function(){
@@ -11,7 +8,7 @@
 
       $.ajax({
         method: 'get',
-        url: 'bills'
+        url: 'bill'
       }).done(function(json) {
         console.log(json);
         data = json;
@@ -21,7 +18,7 @@
         console.log('fail');
       });
 
-      var collection = new List();
+      var collection = new BillList();
       window.collection = collection;
 
     },
@@ -29,7 +26,7 @@
     makeCollection: function() {
       
       _(data).each(function(item){
-        var it = new Item();
+        var it = new BillItem();
         if(item.visible == 1) { //not here
           it.set(item);
           collection.add(it);

@@ -11,37 +11,37 @@
 
 <body>  
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav main-menu">
-            <li class="active"><a href="#">Home</a></li>
-
-            <li><a href="#bills">Bills</a></li>
-            <li><a href="#about">About</a></li>
-
-            <form class="navbar-form navbar-right" role="form">
-              <div class="form-group">
-                <input type="text" class="form-control"/>
-                <button type="submit" placeholder="Search" class="btn">Find</button>
-              </div>
-            </form>
-
-
-          </ul>
-        </div>
-      </div>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Project name</a>
     </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav main-menu">
+        <li class="active"><a href="#">Home</a></li>
+
+        <li><a href="#bills">Bills</a></li>
+        <li><a href="#about">About</a></li>
+
+        <form class="navbar-form navbar-right" role="form">
+          <div class="form-group">
+            <input type="text" class="form-control"/>
+            <button type="submit" placeholder="Search" class="btn">Find</button>
+          </div>
+        </form>
+
+
+      </ul>
+    </div>
+  </div>
+</div>
 
 <!--
     <div class="container">
@@ -67,64 +67,35 @@
 
 
 
-<script type="text/template" id="tpl-btn-add">
-  <div class='row'>
-    <div class='col-md-offset-1 col-md-6'>
-      <button type='button' class='btn btn-primary btn-lg btn-block' data-toggle="modal" data-target="#myModal">Add bill</button>
-    </div>
-  </div>
-</script>
+{% include 'rtpl.html' %}
 
-<script type="text/template" id="item-tpl">
-    <div class="row form-group">
-      
-      <div class="col-md-6 my-col">
-        <h2><%=model.get("name")%> </h2>
-      </div>
 
-      <div class="col-md-3 my-col">
-        <h2> <%=model.get("sum")%></h2>
-      </div>
-      
-      <div class="col-md-3" align='left'>
-        <button class="btn btn-primary btn-lg increase" style="cursor:pointer;">
-          increase
-        </button>
-        <button class="btn btn-danger btn-lg delete" style="cursor:pointer;">
-          delete
-        </button>
-      </div>
-    </div>
-</script>
 
-<script type="text/template" id="tpl-popwindow-add">
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title" id="myModalLabel">Add bill</h4>
-        </div>
-        <div class="modal-body">
-          <form>
-              <div class="form-group">
-                  <input type="text" id="bills-in-name" class="form-control" placeholder="Name">
-              </div>
-              <div class="form-group">
-                  <input type="number" id="bills-in-sum" class="form-control" placeholder="Sum">
-              </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bills-btn-add">Add bill</button>
-        </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Name</h4>
+      </div>
+      <div class="modal-body">Put all here.</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-confirm">Confirm</button>
       </div>
     </div>
   </div>
+</div>
+
+<script>
+modalClick = function(){
+  $("#myModal").modal("show");
+}
 </script>
 
-<script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc.js') }}"></script>
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/billsMVC.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/bills.js') }}"></script>
 
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/page/homePage.js') }}"></script>

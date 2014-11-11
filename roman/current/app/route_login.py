@@ -11,6 +11,10 @@ def is_user(username, password):
     return users_db.find(req)
 
 
+def get_user():
+    return session['username']
+
+
 def requires_auth(func):
     @wraps(func)
     def decorated(*args, **kwargs):
