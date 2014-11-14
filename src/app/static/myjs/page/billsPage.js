@@ -4,23 +4,25 @@
   var Controller = {
 
     makePage: function(){
-      var listView = new BillListView();
       $("#container").append("<div id='bill-list'></div>");
-      this.listView = listView;
-      listView.setCollection(collection, BillEditView, $("#bill-list"));
+      this.listView = new BillListView({
+        el: $("#bill-list"),
+        collection: collection,
+        view: BillEditView
+      });
 
       $("#container-down").html($('#tpl-btn-add').html());
       $(".add-user-btn").unbind("click");
       $(".add-user-btn").click(function() {
-        $(".modal-footer").html($("#tpl-bill-add-footer").html());
-        $(".modal-body").html($("#tpl-bill-add-body").html());
-//        $("#modal-btn-confirm").unbind("click");
-        $("#bill-add-confirm").click(function() {
-          if($("#bills-in-sum").val()) 
-            name = $("#bills-in-name").val() || "default"
-            listView.addItem(name, +$("#bills-in-sum").val());
+        $("#container-tmp").append("<div></div>")
+        popwindow = new PopupView({
+          el: $("div", $("#container-tmp")),
+          body: AddBillBody,
+          footer: AddBillFooter,
+          data: {
+            listView: listView
+          }
         });
-        modalClick();
       });
 
     },

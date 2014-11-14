@@ -1,4 +1,8 @@
-(function(){
+(function() {
+
+  Backbone.Model.prototype.save = function() {
+//    this. = $.extend({}, this.defaults, options);
+  }
 
   var Controller = {
 

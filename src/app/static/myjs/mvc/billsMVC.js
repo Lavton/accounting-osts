@@ -12,18 +12,22 @@
   });
 
 
-  var BillEditView = Backbone.View.extend({      
+  var BillEditView = Backbone.View.extend({ 
+
+    defaults:{},
+
     events: {
       'click .rclickable': 'budget',
       'click span.edit': 'edit',
       'click span.transfer': 'transfer'
     },    
 
-    initialize: function(){
+    initialize: function(options){
       _.bindAll(this, 'render', 'unrender', 'budget', 'remove', 'edit', 'transfer');
-
+      this.options = $.extend({}, this.defaults, options);
       this.model.bind('change', this.render);
       this.model.bind('remove', this.unrender);
+
     },
 
     render: function(){
@@ -39,99 +43,43 @@
     },
 
     budget: function(){
-      model = this.model;
-
-      $(".modal-footer").html($("#tpl-bill-budjet-footer").html());
-      $(".modal-body").html($("#tpl-bill-budjet-body").html());
-      $("#bills-in-delta").val(0);
-      $("#modal-btn-confirm").unbind("click");
-      for (var i = 0; i < 100; i++) {
-        $(".bill-transactions").append("<h6>Transction</h6>")
-      }
-
-      $("#modal-btn-confirm").click(function(){
-        if(+$("#bills-in-delta").val() != 0){
-          var changed = {
-            sum: model.get('sum') + +$("#bills-in-delta").val()
-          };
-          model.set(changed);
+      $("#container-tmp").append("<div></div>")
+      popwindow = new PopupView({
+        el: $("div", $("#container-tmp")),
+        title: "History",
+        body: HistoryBillBody,
+        footer: HistoryBillFooter,
+        data: {
+          model: this.model
         }
-      });
-      modalClick();
+      });      
     },
 
     edit: function(){
-      model = this.model;
-      $(".modal-footer").html($("#tpl-bill-edit-footer").html());
-      $(".modal-body").html($("#tpl-bill-edit-body").html());
-      $("#bills-in-curname").val(model.get('name'));
-
-      $("#bill-btn-del").unbind("click");
-      $("#bill-btn-del").click(function(){
-        model.destroy();
-        modalClick();
-      });
-
-      $("#bill-edit-confirm").unbind("click");
-      $("#bill-edit-confirm").click(function(){
-        if($("#bills-in-curname").val() != model.get('name')){
-          var changed = {
-            name: $("#bills-in-curname").val()
-          };
-          model.set(changed);
+      $("#container-tmp").append("<div></div>")
+      popwindow = new PopupView({
+        el: $("div", $("#container-tmp")),
+        title: "Edit",
+        body: EditBillBody,
+        footer: EditBillFooter,
+        data: {
+          model: this.model
         }
       });
-
-      modalClick();
     },
 
     transfer: function() {
-      model = this.model;
-      $(".modal-footer").html($("#tpl-bill-trans-footer").html());
-      $(".modal-body").html($("#tpl-bill-trans-body").html());
-      var target = model;
-      $("#bill-trans-txt").html("<span style='color:red;'>" + model.get("name") + "</span>");
-      var listView = new ListView();
-      listView.setCollection(collection, BillClickView, $("#bill-div-bill"), function(m){
-        target = m;
-        if(m != model)
-          $("#bill-trans-txt").
-html("<span style='color:red;'>" + model.get("name") + "</span> -> <span style='color:blue;'>" + m.get("name") + "</span>");
-        else
-          $("#bill-trans-txt").html("<span style='color:red;'>" + model.get("name") + "</span>");
-      });
-      $("#bill-trans-in-delta").val(0);
-
-      $("#bill-trans-confirm").click(function(){
-        if(target != model) {
-          var changed = {
-            sum: +target.get("sum") + +$("#bill-trans-in-delta").val()
-          };
-          target.set(changed);
-
-          changed = {
-            sum: +model.get("sum") - +$("#bill-trans-in-delta").val()
-          };
-          model.set(changed);
-          $("#bill-trans-in-delta").val(0);
-        } else {
-          var changed = {
-            sum: +model.get("sum") + +$("#bill-trans-in-delta").val()
-          };
-          model.set(changed);          
-          $("#bill-trans-in-delta").val(0);
+      $("#container-tmp").append("<div></div>")
+      popwindow = new PopupView({
+        el: $("div", $("#container-tmp")),
+        title: "Transaction",
+        body: TransactionBillBody,
+        footer: TransactionBillFooter,
+        data: {
+          model: this.model,
+          collection: collection
         }
       });
-
-//      $('#myModal').on('hide.bs.modal', function (e) {
-//        listView.unbind();
-//        listView.stopListening();
-//        listView.remove();
-//        $("#bill-div-bill").html("");
-//        listView = null;
-//      });
-
-      modalClick();
     },
 
     remove: function(){
@@ -143,13 +91,15 @@ html("<span style='color:red;'>" + model.get("name") + "</span> -> <span style='
   var BillClickView = Backbone.View.extend({
     tagName: "tr",
 
+    defaults: {},
+
     events: {
       'click': 'click'
-    },    
+    },
 
-    initialize: function(){
+    initialize: function(options){
       _.bindAll(this, 'render', 'unrender', 'click');
-
+      this.options = $.extend({}, this.defaults, options);
       this.model.bind('change', this.render);
       this.model.bind('remove', this.unrender);
     },
@@ -166,32 +116,30 @@ html("<span style='color:red;'>" + model.get("name") + "</span> -> <span style='
       $(this.el).remove();
     },
 
-    click: function(){
-      if(!(this.func == undefined)) this.func(this.model);
+    click: function() {
+      this.trigger("click:select", this.model);
     }
   });
   
 
   var ListView = Backbone.View.extend({
 
-    initialize: function() {
-      _.bindAll(this, 'render', 'addItem', 'appendItem');
+    defaults: {
+      collection: null,
+      view: null
     },
 
-    setCollection: function(collection, view, elem, func){
-      this.setElement(elem);
-      this.elem = elem;
-      this.view = view;
-      this.func = func
-      this.collection = collection;
-      this.listenTo(this.collection, 'add', this.appendItem);
+    initialize: function(options) {
+      _.bindAll(this, 'render', 'addItem', 'appendItem');
+      this.options = $.extend({}, this.defaults, options);
+      delete this.options.el;
+      this.listenTo(this.options.collection, 'add', this.appendItem);
       this.render();
     },
 
     render: function() {
-      var self = this;
-      _(this.collection.models).each(function(item){
-        self.appendItem(item);
+      _(this.options.collection.models).each(function(item){
+        this.appendItem(item);
       }, this);
     },
 
@@ -202,15 +150,16 @@ html("<span style='color:red;'>" + model.get("name") + "</span> -> <span style='
         name: name,
         sum: sum
       });
-      this.collection.add(item);
+      this.options.collection.add(item);
     },
 
     appendItem: function(item) {
-      var billView = new this.view({
-        model: item
-      });
-      billView.func = this.func;
-      this.elem.append(billView.render().el);
+      this.options.model = item;
+      var billView = new this.options.view(this.options);
+      billView.on("all", function(eventName, a, b, c, d, e, f) {
+        this.trigger(eventName, a, b, c, d, e, f);
+      }, this);
+      $(this.el).append(billView.render().el);
     }
   });
 

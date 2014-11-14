@@ -6,6 +6,8 @@
   </div>
 </script>
 
+<!--BillTemplate-->
+
 <script type="text/template" id="item-tpl">
     <div class="row form-group">
       
@@ -22,9 +24,6 @@
       </div>
       
       <div class="col-md-3 my-col">
-<!--        <button class="btn btn-primary btn-lg budget" style="cursor:pointer;">
-          Last
-        </button>-->
         <span class="transfer" style="cursor:pointer; color:blue; font-family:sans-serif;font-size: 200%;">
           [transfer]
         </span>
@@ -42,57 +41,9 @@
 </script>
 
 
-<!-- MODAL -->
-<script type="text/template" id="tpl-bill-trans-body">
-  <table class="table table-bordered table-striped" id="bill-div-bill"></table>
-  <h8 id="bill-trans-txt"> </h8>
-</script>
+<!--TransactionModel-->
 
-<script type="text/template" id="tpl-bill-trans-footer">
-  <input type="number" id="bill-trans-in-delta" placeholder="Sum">
-  <button type="button" class="btn btn-primary" id="bill-trans-confirm">Transfer</button>
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-</script>
-
-
-<script type="text/template" id="tpl-bill-add-body">
-  <form>
-      <div class="form-group">
-          <input type="text" id="bills-in-name" class="form-control" placeholder="Name">
-      </div>
-      <div class="form-group">
-          <input type="number" id="bills-in-sum" class="form-control" placeholder="Sum">
-      </div>
-  </form>
-</script>
-
-<script type="text/template" id="tpl-bill-add-footer">
-  <button type="button" class="btn btn-primary" data-dismiss="modal" id="bill-add-confirm">Confirm</button>
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-</script>
-
-
-<script type="text/template" id="tpl-bill-budjet-body">
-  <div class="bill-transactions">
-    Here should be information about last transactions.
-  </div>
-</script>
-
-<script type="text/template" id="tpl-bill-budjet-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-</script>
-
-
-<script type="text/template" id="tpl-bill-edit-body">
-  <form>
-    <input type="text" id="bills-in-curname" class="form-control" placeholder="New bill name">
-  </form>
-</script>
-
-<script type="text/template" id="tpl-bill-edit-footer">
-  <button class="btn btn-danger" data-dismiss="modal" id="bill-btn-del" style="cursor:pointer;">
-    Delete
-  </button>
-  <button type="button" class="btn btn-primary" data-dismiss="modal" id="bill-edit-confirm" style="margin-left: 350px;">Confirm</button>
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<script type="text/template" id="tpl-transaction">
+  <span style="cursor:pointer;"><%=model.get("name")%></span>
+  <span style="cursor:pointer;"><%=model.get("sum")%></span>
 </script>

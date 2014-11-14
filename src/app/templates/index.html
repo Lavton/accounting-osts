@@ -68,9 +68,9 @@
 
 
 {% include 'rtpl.html' %}
+{% include 'templates.html' %}
 
-
-
+<!--
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -86,17 +86,20 @@
     </div>
   </div>
 </div>
-
-<script>
-modalClick = function(){
-  $("#myModal").modal("show");
-}
-</script>
+-->
 
 
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/PopupView.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/AddBillView.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/EditBillView.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/TransferBillView.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/HistoryBillView.js') }}"></script>
 
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/billsMVC.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/bills.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/transactionMVC.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/transactions.js') }}"></script>
 
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/page/homePage.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/page/billsPage.js') }}"></script>
