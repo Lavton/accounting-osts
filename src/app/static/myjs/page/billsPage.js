@@ -1,5 +1,4 @@
-(function(){
-  this.listView = null;
+(function() {
 
   var Controller = {
 
@@ -10,12 +9,13 @@
         collection: collection,
         view: BillEditView
       });
+      listView = this.listView;
 
       $("#container-down").html($('#tpl-btn-add').html());
       $(".add-user-btn").unbind("click");
       $(".add-user-btn").click(function() {
         $("#container-tmp").append("<div></div>")
-        popwindow = new PopupView({
+        window.popwindow = new PopupView({
           el: $("div", $("#container-tmp")),
           body: AddBillBody,
           footer: AddBillFooter,
