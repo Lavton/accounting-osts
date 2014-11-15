@@ -1,4 +1,5 @@
 (function(){
+    $.jstree.defaults.core.multiple = false;
 
   var transaction_id = 0;
   
@@ -22,10 +23,10 @@
   });
 
   CategoriesView = Backbone.View.extend({
+  
     initialize: function() {
       _.bindAll(this, 'render'); 
       this.counter = 0;
-
     },
 
     setCollection: function(collection) {
@@ -35,17 +36,24 @@
     },
 
     render: function() {
-      $('#jstree').jstree({ 
+
+      $(this.el).jstree({ 
       'core' : {
-      'data' : this.collection.models
-      } 
+        'data' : this.collection.models
+      }, 
+      "plugins" : [ "contextmenu", "wholerow" ]
     }); 
-    },
-    appendItem: function(item){
-      var billView = new BillView({
-        model: item
-      });
-      $('ul', this.el).append(billView.render().el); //?????
+    var ref = $(this.el).jstree(true);
+
+    $(this.el).on('select_node.jstree', function (e, data) {
+      console.log("Hello!")
+      console.log(e)
+      console.log(data)
+      console.log($(this.el))
+      //console.log(ref)
+      console.log(ref.get_selected())
+    });
+    
     }
 
   })
