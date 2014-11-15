@@ -40,6 +40,7 @@
 
         routes: {
           "": "homeAction",
+          "gains": "gainsAction",
           "about": "aboutAction",
           "bills": "billsAction"
         },
@@ -63,6 +64,13 @@
           $(".route-about").addClass("active");
           AboutPage.makePage();
           currentPage = WhatPageEnum.ABOUT;
+        },
+
+        gainsAction: function() {
+          cleanPage();
+          $(".route-gains").addClass("active");
+          GainsPage.makePage();
+          currentPage = WhatPageEnum.GAINS;
         }
 
       });
