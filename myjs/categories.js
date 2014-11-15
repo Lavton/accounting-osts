@@ -10,7 +10,8 @@
         {
         "id" : "com_trans",
         "parent" : "#",
-        "text" : "Транспорт"
+        "text" : "Транспорт",
+        "icon":"http://jstree.com/tree.png"
         },
         {
         "id" : "food",

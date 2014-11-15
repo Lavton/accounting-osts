@@ -4,6 +4,7 @@
     makePage: function() {
       $("#container").append("<div id='jstree'></div>");
       var gainView = new CategoriesView();
+      $("#jstree").append(gainView.el)
       this.gainView = gainView;
       gainView.setCollection(categoryCollection);
     },

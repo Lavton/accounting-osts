@@ -2,11 +2,14 @@
 <html>
 
 <head lang="en">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/1c_coin.jpg')}}" type="image/vnd.microsoft.icon" />
     <meta charset="UTF-8">
-    <title></title>
-    <link href= "{{ url_for('static',filename='css/bootstrap.css')}}" rel="stylesheet"/>
-    <link href="{{ url_for('static',filename='css/bootstrap-theme.css')}}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css/starter-template.css')}}" rel="stylesheet">
+    <title>Account-ost</title>
+    <link href="{{ url_for('static',filename='css/bootstrap.css')}}" rel="stylesheet"/>
+    <link href="{{ url_for('static',filename='css/bootstrap-theme.css')}}" rel="stylesheet"/>
+    <link href="{{ url_for('static',filename='css/starter-template.css')}}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='css/st_jstree.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static',filename='css/own_style.css')}}" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>  
@@ -20,13 +23,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Project name</a>
+       <a class="navbar-brand" href="#">Accounts</a>
     </div>
 
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav main-menu">
         <li class="active route-home"><a href="#">Home</a></li>
-
+        <li class="route-gains"><a href="#gains">Gains</a></li>
         <li class="route-bills"><a href="#bills">Bills</a></li>
         <li class="route-about"><a href="#about">About</a></li>
 
@@ -64,6 +67,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/underscore.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/backbone.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jstree.js') }}"></script>
 
 
 
