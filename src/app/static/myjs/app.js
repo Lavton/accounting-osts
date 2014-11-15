@@ -4,25 +4,36 @@
 
     init: function() {
       console.log("init");
+      var WhatPageEnum = {
+        BILLS: 0,
+        HOME: 1,
+        ABOUT: 2,
+        GAINS: 3,
+        NONE: 4,
+      };
 
-      var isBills = false,
-          isHome = true,
-          isAbout = false;
+      var currentPage = WhatPageEnum.HOME;
 
       cleanPage = function(){
-        if(isBills) {
-          $(".route-bills").removeClass("active");
-          BillsPage.cleanPage();
-          isBills = !isBills;
-        } else if(isHome) {
-          $(".route-home").removeClass("active");
-          HomePage.cleanPage();
-          isHome = !isHome;
-        } else if(isAbout) {
-          $(".route-about").removeClass("active");
-          AboutPage.cleanPage();
-          isAbout = !isAbout;
+        switch (currentPage) {
+          case WhatPageEnum.BILLS:
+            $(".route-bills").removeClass("active");
+            BillsPage.cleanPage();
+            break; 
+          case WhatPageEnum.HOME:
+            $(".route-home").removeClass("active");
+            HomePage.cleanPage();
+            break; 
+          case WhatPageEnum.ABOUT:
+            $(".route-about").removeClass("active");
+            AboutPage.cleanPage();
+            break; 
+          case WhatPageEnum.GAINS:
+            $(".route-gains").removeClass("active");
+            GainsPage.cleanPage();
+            break;
         }
+        currentPage = WhatPageEnum.NONE;
       }
 
       var Workspace = Backbone.Router.extend({
@@ -37,21 +48,21 @@
           cleanPage();
           $(".route-home").addClass("active");
           HomePage.makePage();
-          isHome = true;
+          currentPage = WhatPageEnum.HOME;
         },
 
         billsAction: function() {
           cleanPage();
           $(".route-bills").addClass("active");
           BillsPage.makePage();
-          isBills = true;
+          currentPage = WhatPageEnum.BILLS;
         },
 
         aboutAction: function() {
           cleanPage();
           $(".route-about").addClass("active");
           AboutPage.makePage();
-          isAbout = true;
+          currentPage = WhatPageEnum.ABOUT;
         }
 
       });
