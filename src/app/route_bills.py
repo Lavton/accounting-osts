@@ -49,6 +49,8 @@ def bill_put():
     if "visible" in request.form:
         bill["visible"] = request.form.get("visible", type=int)
 
+    app.logger.debug(request.form.get('indef', None));
+
     bills_db.update(req, {"$set": bill})
     return jsonify(result="Success")
 

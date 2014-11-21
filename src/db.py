@@ -4,4 +4,4 @@ client = MongoClient()
 db = client.app_db
 bills_db = db.bills_db
 users_db = db.users_db
-categories_db = db.categories_db
+transactions_db = db.transactions_db

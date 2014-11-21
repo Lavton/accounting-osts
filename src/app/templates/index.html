@@ -74,24 +74,7 @@
 {% include 'rtpl.html' %}
 {% include 'templates.html' %}
 
-<!--
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Name</h4>
-      </div>
-      <div class="modal-body">Put all here.</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-confirm">Confirm</button>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/synchronizer.js') }}"></script>
 
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/PopupView.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/AddBillView.js') }}"></script>
@@ -107,13 +90,13 @@
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/billsMVC.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/bills.js') }}"></script>
 
-<script type="text/javascript" src="{{ url_for('static', filename='myjs/mvc/transactionMVC.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/transactions.js') }}"></script>
 
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/page/homePage.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/page/billsPage.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/page/aboutPage.js') }}"></script>
 
+<script type="text/javascript" src="{{ url_for('static', filename='myjs/support.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='myjs/app.js') }}"></script>
 
 

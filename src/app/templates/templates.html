@@ -13,3 +13,13 @@
   </div>
 </script>
 
+<script type="text/template" id="tpl-bill-click">
+  <td style="cursor:pointer;"><%=model.get("name")%></td>
+  <td style="cursor:pointer;"><%=model.get("sum")%></td>
+</script>
+
+<script type="text/template" id="tpl-transaction-click">
+  <td style="cursor:pointer;"><%=indefToName(model.get("from"), model.get("fromClass"))%></td>
+  <td style="cursor:pointer;"><%=indefToName(model.get("to"), model.get("toClass"))%></td>
+  <td style="cursor:pointer;"><%=model.get("delta")%></td>
+</script>

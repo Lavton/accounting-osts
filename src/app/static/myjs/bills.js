@@ -6,9 +6,9 @@
 
   var Controller = {
 
-    init: function(){
-      data = {
-      };
+    init: function() {
+
+      window.collection = new List();
 
       $.ajax({
         method: 'get',
@@ -19,18 +19,17 @@
         Controller.makeCollection();
         console.log('success');
       }).fail(function() {
+        data = JSON.parse(localStorage["bill"]);
+        Controller.makeCollection();
         console.log('fail');
       });
-
-      var collection = new BillList();
-      window.collection = collection;
 
     },
 
     makeCollection: function() {
       
       _(data).each(function(item){
-        var it = new BillItem();
+        var it = new Item();
         if(item.visible == 1) { //not here
           it.set(item);
           collection.add(it);
@@ -40,27 +39,25 @@
 
      collection.on("add", function(obj) {
         console.log("new " + obj.get("indef") + " " + obj.get("name") + " " + obj.get("sum")); 
+        localStorage["bill"] = JSON.stringify(collection.toJSON());
 
-        $.ajax({
-            method: 'post',
-            url: 'bill',
-            data: {
-              indef: obj.get("indef"),
-              name: obj.get("name"),
-              sum: obj.get("sum")
-            }
-        }).done(function(json) {
-            console.log(json);
-            console.log('success');
-        }).fail(function() {
-            console.log('fail');
+        requestQuery.push({
+          method: 'post',
+          url: 'bill',
+          data: {
+            indef: obj.get("indef"),
+            name: obj.get("name"),
+            sum: obj.get("sum")
+          }
         });
+        localStorage["request"] = JSON.stringify(requestQuery);
       });
 
       collection.on("change", function(obj) {
         console.log("set " + obj.get("indef") + " " + obj.get("name") + " " + obj.get("sum"));
+        localStorage["bill"] = JSON.stringify(collection.toJSON());
       
-        $.ajax({
+        requestQuery.push({
             method: 'put',
             url: 'bill',
             data: {
@@ -68,30 +65,23 @@
               name: obj.get("name"),
               sum: obj.get("sum")
             }
-        }).done(function(json) {
-            console.log(json);
-            console.log('success');
-        }).fail(function() {
-            console.log('fail');
         });
+        localStorage["request"] = JSON.stringify(requestQuery);
       });
 
       collection.on("destroy", function(obj) {
         console.log("del " + obj.get("indef") + " " + obj.get("name") + " " + obj.get("sum"));
+        localStorage["bill"] = JSON.stringiflocalStorage["bills"] = JSON.stringify(collection.toJSON());y(collection.toJSON());
 
-        $.ajax({
+        requestQuery.push({
             method: 'put',
             url: 'bill',
             data: {
               indef: obj.get("indef"),
               visible: 0
             }
-        }).done(function(json) {
-            console.log(json);
-            console.log('success');
-        }).fail(function() {
-            console.log('fail');
         });
+        localStorage["request"] = JSON.stringify(requestQuery);
       });
       
     },

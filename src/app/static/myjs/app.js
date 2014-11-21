@@ -1,5 +1,16 @@
 (function() {
 
+
+var Base = function() {};
+var base = new Base();
+
+BaseExtended = function() {};
+
+BaseExtended.prototype = $.extend({}, Base.prototype, {
+  init: function() {},
+  c: '123'
+});
+
   var App = {
 
     init: function() {
@@ -15,21 +26,18 @@
       var currentPage = WhatPageEnum.HOME;
 
       cleanPage = function(){
+        $(".main-menu>li").removeClass("active");
         switch (currentPage) {
-          case WhatPageEnum.BILLS:
-            $(".route-bills").removeClass("active");
+          case WhatPageEnum.BILLS:            
             BillsPage.cleanPage();
             break; 
           case WhatPageEnum.HOME:
-            $(".route-home").removeClass("active");
             HomePage.cleanPage();
             break; 
           case WhatPageEnum.ABOUT:
-            $(".route-about").removeClass("active");
             AboutPage.cleanPage();
             break; 
           case WhatPageEnum.GAINS:
-            $(".route-gains").removeClass("active");
             GainsPage.cleanPage();
             break;
         }

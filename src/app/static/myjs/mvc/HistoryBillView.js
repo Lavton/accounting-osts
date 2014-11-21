@@ -2,7 +2,7 @@
 
   var body = 
 ' <div class="bill-transactions"> \
-    Here should be information about last transactions. \
+    <table class="table table-bordered table-striped"></table> \
   </div>';
 
   var footer = 
@@ -21,14 +21,19 @@
 
     render: function() {
       $(this.el).html(body);
-      $(".name").val(this.options.model.get("name"));
-      for (var i = 0; i < 100; i++) {
-        $(".bill-transactions", $(this.el)).append("<h6>Transction</h6>")
-      }
+      this.listView = new ListView({
+        el: $(".table", $(this.el)),
+        collection: transactionCollection,
+        view: TransactionClickView
+      });
       return this;
     },
 
-    unrender: function(){
+    unrender: function() {
+      this.listView.unbind();
+      this.listView.stopListening();
+      this.listView.remove();
+      this.listView = null;
       $(this.el).remove();
       this.remove();
     }

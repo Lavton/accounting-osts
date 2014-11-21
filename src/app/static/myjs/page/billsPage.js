@@ -4,7 +4,7 @@
 
     makePage: function(){
       $("#container").append("<div id='bill-list'></div>");
-      this.listView = new BillListView({
+      this.listView = new ListView({
         el: $("#bill-list"),
         collection: collection,
         view: BillEditView
@@ -35,6 +35,7 @@
       this.listView = null;
     }
   }
-
+  
   window.BillsPage = Controller;
+
 })();

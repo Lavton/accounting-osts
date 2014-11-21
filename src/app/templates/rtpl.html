@@ -12,13 +12,13 @@
     <div class="row form-group">
       
       <div class="col-md-6 my-col rclickable" style="cursor:pointer;">
-        <span class="transfer" style="color:black;font-size: 200%;">
+        <span style="color:black;font-size: 200%;">
           <%=model.get("name")%>
         </span>
       </div>
 
       <div class="col-md-3 my-col rclickable" style="cursor:pointer;" align='right'>
-        <span class="transfer" style="color:black;font-size: 200%;">
+        <span style="color:black;font-size: 200%;">
           <%=model.get("sum")%>
         </span>
       </div>
@@ -33,17 +33,4 @@
         </span>
       </div>
     </div>
-</script>
-
-<script type="text/template" id="tpl-bill-click">
-  <td style="cursor:pointer;"><%=model.get("name")%></td>
-  <td style="cursor:pointer;"><%=model.get("sum")%></td>
-</script>
-
-
-<!--TransactionModel-->
-
-<script type="text/template" id="tpl-transaction">
-  <span style="cursor:pointer;"><%=model.get("name")%></span>
-  <span style="cursor:pointer;"><%=model.get("sum")%></span>
 </script>

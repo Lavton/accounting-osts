@@ -1,9 +1,6 @@
 (function(){
 
   var Item = Backbone.Model.extend({
-    defaults: {
-      sum: 0
-    }
   });
 
 
@@ -42,7 +39,8 @@
       $(this.el).remove();
     },
 
-    budget: function(){
+    budget: function() {
+      console.log("budget");
       $("#container-tmp").append("<div></div>")
       popwindow = new PopupView({
         el: $("div", $("#container-tmp")),
@@ -55,7 +53,8 @@
       });      
     },
 
-    edit: function(){
+    edit: function() {
+      console.log("edit");
       $("#container-tmp").append("<div></div>")
       popwindow = new PopupView({
         el: $("div", $("#container-tmp")),
@@ -69,6 +68,7 @@
     },
 
     transfer: function() {
+      console.log("transfer");
       $("#container-tmp").append("<div></div>")
       popwindow = new PopupView({
         el: $("div", $("#container-tmp")),
@@ -77,7 +77,8 @@
         footer: TransactionBillFooter,
         data: {
           model: this.model,
-          collection: collection
+          collection: collection,
+          tranCollection: transactionCollection
         }
       });
     },
@@ -89,6 +90,7 @@
 
 
   var BillClickView = Backbone.View.extend({
+
     tagName: "tr",
 
     defaults: {},
@@ -143,13 +145,9 @@
       }, this);
     },
 
-    addItem: function(name, sum) {
+    addItem: function(param) {
       var item = new Item();
-      item.set({
-        indef: (new Date()).getTime(), 
-        name: name,
-        sum: sum
-      });
+      item.set(param);
       this.options.collection.add(item);
     },
 
@@ -163,11 +161,47 @@
     }
   });
 
-  window.BillItem = Item;
-  window.BillList = List;
+
+  var TransactionClickView = Backbone.View.extend({
+    tagName: "tr",
+
+    defaults: {},
+
+    events: {
+      'click': 'click'
+    },
+
+    initialize: function(options){
+      _.bindAll(this, 'render', 'unrender', 'click');
+      this.options = $.extend({}, this.defaults, options);
+      this.model.bind('change', this.render);
+      this.model.bind('remove', this.unrender);
+    },
+
+    render: function() {
+      console.log(this.model);
+      var htmlCode = _.template($('#tpl-transaction-click').html(), {
+        model: this.model
+      });
+      $(this.el).html(htmlCode);
+      return this;
+    },
+
+    unrender: function(){
+      $(this.el).remove();
+    },
+
+    click: function() {
+      this.trigger("click:select", this.model);
+    }
+  });
+
+  window.Item = Item;
+  window.List = List;
+  window.ListView = ListView;
   window.BillEditView = BillEditView;
   window.BillClickView = BillClickView;
-  window.BillListView = ListView;
+  window.TransactionClickView = TransactionClickView;
 
 
 })();

@@ -34,6 +34,16 @@
             sum: +this.model.get("sum") + +delta
           });
         }
+
+        transactionCollection.add({
+          indef: (new Date()).getTime(),
+          data: "no information",
+          from: this.model.get("indef"),
+          fromClass: "bill",
+          to: this.target.get("indef"),
+          toClass: "bill",
+          delta: delta
+        });
       }, this);
 
       this.render();
@@ -44,7 +54,7 @@
       $(".text", $(this.el)).html("<span style='color:red;'>" + this.model.get("name")
        + "</span>");
 
-      this.listView = new BillListView({
+      this.listView = new ListView({
         el: $(".table", $(this.el)),
         collection: this.options.collection,
         view: BillClickView
