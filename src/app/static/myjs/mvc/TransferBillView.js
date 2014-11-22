@@ -37,7 +37,7 @@
 
         transactionCollection.add({
           indef: (new Date()).getTime(),
-          data: "no information",
+          data: getDate(),
           from: this.model.get("indef"),
           fromClass: "bill",
           to: this.target.get("indef"),

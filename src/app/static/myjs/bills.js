@@ -30,10 +30,8 @@
       
       _(data).each(function(item){
         var it = new Item();
-        if(item.visible == 1) { //not here
-          it.set(item);
-          collection.add(it);
-        }
+        it.set(item);
+        collection.add(it);
       })
 
 
@@ -71,7 +69,7 @@
 
       collection.on("destroy", function(obj) {
         console.log("del " + obj.get("indef") + " " + obj.get("name") + " " + obj.get("sum"));
-        localStorage["bill"] = JSON.stringiflocalStorage["bills"] = JSON.stringify(collection.toJSON());y(collection.toJSON());
+        localStorage["bill"] = JSON.stringify(collection.toJSON());
 
         requestQuery.push({
             method: 'put',

@@ -140,7 +140,7 @@
     },
 
     render: function() {
-      _(this.options.collection.models).each(function(item){
+      _(this.options.collection.models).each(function(item) {
         this.appendItem(item);
       }, this);
     },
@@ -152,12 +152,14 @@
     },
 
     appendItem: function(item) {
-      this.options.model = item;
-      var billView = new this.options.view(this.options);
-      billView.on("all", function(eventName, a, b, c, d, e, f) {
-        this.trigger(eventName, a, b, c, d, e, f);
-      }, this);
-      $(this.el).append(billView.render().el);
+      if(!this.options.selector || this.options.selector(item)) {
+        this.options.model = item;
+        var billView = new this.options.view(this.options);
+        billView.on("all", function(eventName, a, b, c, d, e, f) {
+          this.trigger(eventName, a, b, c, d, e, f);
+        }, this);
+        $(this.el).append(billView.render().el);
+      }
     }
   });
 
@@ -179,7 +181,6 @@
     },
 
     render: function() {
-      console.log(this.model);
       var htmlCode = _.template($('#tpl-transaction-click').html(), {
         model: this.model
       });

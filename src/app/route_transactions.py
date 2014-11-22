@@ -38,7 +38,6 @@ def transaction_get():
     for record in transactions_db.find({"user": get_user()}):
         record.pop("_id", None)
         d[record["indef"]] = record
-    app.logger.debug(d)
     return jsonify(**d)
 
 

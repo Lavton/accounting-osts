@@ -2,12 +2,15 @@
 
   var Controller = {
 
-    makePage: function(){
+    makePage: function() {
       $("#container").append("<div id='bill-list'></div>");
       this.listView = new ListView({
         el: $("#bill-list"),
         collection: collection,
-        view: BillEditView
+        view: BillEditView,
+        selector: function(model) {
+          return model.get("visible");
+        }
       });
       listView = this.listView;
 

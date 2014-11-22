@@ -1,8 +1,16 @@
 (function() {
 
   var body = 
-' <div class="bill-transactions"> \
-    <table class="table table-bordered table-striped"></table> \
+'   <table class="table table-bordered table-striped"> \
+      <tr> \
+        <td style="cursor:pointer;">From</td> \
+        <td style="cursor:pointer;">To</td> \
+        <td style="cursor:pointer;">Delta</td> \
+        <td style="cursor:pointer;">Date</td> \
+      </tr> \
+    </table> \
+  <div class="bill-transactions"> \
+    <table class="table table-bordered table-striped ctable"></table> \
   </div>';
 
   var footer = 
@@ -21,10 +29,14 @@
 
     render: function() {
       $(this.el).html(body);
+      indef = this.options.model.get("indef");
       this.listView = new ListView({
-        el: $(".table", $(this.el)),
+        el: $(".ctable", $(this.el)),
         collection: transactionCollection,
-        view: TransactionClickView
+        view: TransactionClickView,
+        selector: function(model) {
+          return model.get("from") == indef || model.get("to") == indef;
+        }
       });
       return this;
     },

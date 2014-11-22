@@ -13,6 +13,7 @@
         console.log(json);
         data = json;
         Controller.makeCollection();
+        console.log("success");
       }).fail(function() {
         console.log('fail');
         data = JSON.parse(localStorage["transaction"]);
