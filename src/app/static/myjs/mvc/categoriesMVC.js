@@ -31,7 +31,7 @@
 
     render: function() {
 
-          function customMenu(node) {
+      function customMenu(node) {
         // The default set of all items
         var items = {
             createItem: {
@@ -47,12 +47,37 @@
                 action: function () {console.log(node)}
             }
         };
-
         return items;
-    }
+      };
+
+      console.log("PARSED")
+      console.log(this.collection.models)
+      /*        
+      "idef" : "metro",
+        "parent" : "com_trans",
+        "name" : "На метро",
+        "type": "gains",
+        "sum": 20,
+
+        "id" : "com_trans",
+        "parent" : "#",
+        "text" : "Транспорт",*/
+      debugger;
+      var parsed = JSON.parse(this.collection.models, function(k, v) {
+        if (k === "idef") 
+            this.id = v;
+        else if (k === "name")
+            this.text = v;
+        else
+            return v;
+      });
+      console.log("AFTER")
+      console.log(this.collection.models)
+      console.log(parsed)
+
       $(this.el).jstree({ 
       'core' : {
-        'data' : this.collection.models
+        'data' : parsed //this.collection.models
       },
       "plugins" : [ "contextmenu", "wholerow" ],
       contextmenu: {items: customMenu}

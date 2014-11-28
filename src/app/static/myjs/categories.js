@@ -6,13 +6,48 @@
   var Controller = {
 
     init: function(){
+
+      new_data = [
+        {
+        "idef" : "com_trans",
+        "parent" : "#",
+        "name" : "Транспорт",
+        "icon":"http://jstree.com/tree.png",
+        "type": "gains",
+        "sum": 20,
+        },
+        {
+        "idef" : "food",
+        "parent" : "#",
+        "name" : "Еда",
+        "type": "gains",
+        "sum": 20,
+
+        },
+        {
+        "idef" : "trans_car",
+        "parent" : "com_trans",
+        "name" : "На бензин",
+        "type": "gains",
+        "sum": 20,
+        },
+        {
+        "idef" : "metro",
+        "parent" : "com_trans",
+        "name" : "На метро",
+        "type": "gains",
+        "sum": 20,
+        },
+      ]
+
+
       data = [
         {
         "id" : "com_trans",
         "parent" : "#",
         "text" : "Транспорт",
         "icon":"http://jstree.com/tree.png",
-        
+
         },
         {
         "id" : "food",
@@ -34,7 +69,7 @@
     },
 
     makeCollection: function() {
-      var collection = new CategoryCollection(data);
+      var collection = new CategoryCollection(new_data);
 
       collection.on("add", function(obj) {
         console.log("new " + obj.get("id"));
