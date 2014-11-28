@@ -11,7 +11,8 @@
         "id" : "com_trans",
         "parent" : "#",
         "text" : "Транспорт",
-        "icon":"http://jstree.com/tree.png"
+        "icon":"http://jstree.com/tree.png",
+        
         },
         {
         "id" : "food",

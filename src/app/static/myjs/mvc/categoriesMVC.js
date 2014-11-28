@@ -1,39 +1,65 @@
 (function(){
-    $.jstree.defaults.core.multiple = false;
+  $.jstree.defaults.core.multiple = false;
 
-  var CategoryModel = Backbone.Model.extend();
+  var CategoryModel = Backbone.Model.extend({
+    parse: function(resp) {
+      return resp;
+    }
+  });
+
   var CategoryCollection = Backbone.Collection.extend({
     model: CategoryModel,
     url: "#"
   });
 
   CategoriesView = Backbone.View.extend({
-  
-    initialize: function() {
-      console.log("CAT")
-      _.bindAll(this, 'render'); 
-      this.counter = 0;
+    defaults : {
+      collection: null,
     },
 
-    setCollection: function(collection) {
-      this.collection = collection;
-      console.log("setCollection")
+
+    initialize: function(options) {
+      this.options = $.extend({}, this.defaults, options);
+      this.collection = this.options.cCollection
+      _.bindAll(this, 'render'); 
+      this.counter = 0;
+      console.log("initialize")
+      console.log(options)
       this.render();
     },
 
+
     render: function() {
-      console.log("HELLO");
-      $(this.el).append("H");
+
+          function customMenu(node) {
+        // The default set of all items
+        var items = {
+            createItem: {
+              label: "Create",
+              action: function() {console.log(node)}
+            },
+            renameItem: { // The "rename" menu item
+                label: "Rename",
+                action: function () {console.log(node)}
+            },
+            deleteItem: { // The "delete" menu item
+                label: "Delete",
+                action: function () {console.log(node)}
+            }
+        };
+
+        return items;
+    }
       $(this.el).jstree({ 
       'core' : {
         'data' : this.collection.models
-      }, 
-      "plugins" : [ "contextmenu", "wholerow" ]
+      },
+      "plugins" : [ "contextmenu", "wholerow" ],
+      contextmenu: {items: customMenu}
     }); 
     var ref = $(this.el).jstree(true);
 
     $(this.el).on('select_node.jstree', function (e, data) {
-      console.log("Hello!")
       console.log(e)
       console.log(data)
       console.log($(this.el))

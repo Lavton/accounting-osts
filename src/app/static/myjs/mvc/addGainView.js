@@ -36,11 +36,24 @@
 
     render: function() {
       $(this.el).html(body);
-      var gainViewFrom = new CategoriesView({el: $("#from_g"),});
-      var gainViewTo = new CategoriesView({el: $("#to_g"),});
+      var gainViewFrom = new BillJsTreeView({el: $("#from_g"),
+        collection: collection,
+      });
 
-      gainViewFrom.setCollection(categoryCollection);
-      gainViewTo.setCollection(categoryCollection);
+      var gainViewFrom = new CategoriesView({el: $("#from_g"),
+      cCollection: categoryCollection,});
+
+/*      var gainViewFrom = new BillListView({
+        el: $("#from_g"),
+        collection: collection,
+        view: BillClickView
+      });
+*/      var gainViewTo = new CategoriesView({el: $("#to_g"),
+      cCollection: categoryCollection,
+    });
+
+//      gainViewFrom.setCollection(categoryCollection);
+      //gainViewTo.setCollection(categoryCollection);
       return this;
     },
 

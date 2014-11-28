@@ -7,3 +7,7 @@
 .whole_length {
 	width: 100%;
 }
+
+.vakata-context.jstree-contextmenu {
+	z-index: 1100;
+}

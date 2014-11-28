@@ -197,12 +197,56 @@
     }
   });
 
+  BillJsTreeView = Backbone.View.extend({
+    defaults : {
+      collection: null,
+    },
+
+
+    initialize: function(options) {
+      this.options = $.extend({}, this.defaults, options);
+      this.collection = this.options.collection
+      _.bindAll(this, 'render', 'makeJsColletion'); 
+      this.counter = 0;
+      //console.log(options)
+      console.log(this.collection.toJSON())
+    },
+
+
+    makeJsColletion: function(options) {
+
+    },
+
+    render: function() {
+      $(this.el).jstree({ 
+      'core' : {
+        'data' : this.collection.models
+      }, 
+      "plugins" : [ "contextmenu", "wholerow" ]
+    }); 
+    var ref = $(this.el).jstree(true);
+
+    $(this.el).on('select_node.jstree', function (e, data) {
+      console.log("Hello!")
+      console.log(e)
+      console.log(data)
+      console.log($(this.el))
+      //console.log(ref)
+      console.log(ref.get_selected())
+    });
+    
+    }
+
+  });
+
+
   window.Item = Item;
   window.List = List;
   window.ListView = ListView;
   window.BillEditView = BillEditView;
   window.BillClickView = BillClickView;
   window.TransactionClickView = TransactionClickView;
+  window.BillJsTreeView = BillJsTreeView;
 
 
 })();

@@ -20,6 +20,7 @@ BaseExtended.prototype = $.extend({}, Base.prototype, {
         HOME: 1,
         ABOUT: 2,
         GAINS: 3,
+        INCOMES: 5,
         NONE: 4,
       };
 
@@ -40,6 +41,9 @@ BaseExtended.prototype = $.extend({}, Base.prototype, {
           case WhatPageEnum.GAINS:
             GainsPage.cleanPage();
             break;
+          case WhatPageEnum.INCOMES:
+            IncomesPage.cleanPage();
+            break;
         }
         currentPage = WhatPageEnum.NONE;
       }
@@ -49,6 +53,7 @@ BaseExtended.prototype = $.extend({}, Base.prototype, {
         routes: {
           "": "homeAction",
           "gains": "gainsAction",
+          "incomes": "incomesAction",
           "about": "aboutAction",
           "bills": "billsAction"
         },
@@ -79,7 +84,15 @@ BaseExtended.prototype = $.extend({}, Base.prototype, {
           $(".route-gains").addClass("active");
           GainsPage.makePage();
           currentPage = WhatPageEnum.GAINS;
+        },
+
+        incomesAction: function() {
+          cleanPage();
+          $(".route-incomes").addClass("active");
+          IncomesPage.makePage();
+          currentPage = WhatPageEnum.INCOMES;
         }
+
 
       });
 
