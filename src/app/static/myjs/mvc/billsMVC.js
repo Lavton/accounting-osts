@@ -5,7 +5,18 @@
 
 
   var List = Backbone.Collection.extend({
-    model: Item
+    model: Item,
+    get_jstree: function() {
+      var struc = []
+      this.each(function(model) {
+        var item = model.toJSON()
+        item.id = item.indef;
+        item.text = item.name;
+        struc.push(item);
+      })
+      return struc;
+    }
+
   });
 
 
@@ -206,35 +217,21 @@
     initialize: function(options) {
       this.options = $.extend({}, this.defaults, options);
       this.collection = this.options.collection
-      _.bindAll(this, 'render', 'makeJsColletion'); 
+      _.bindAll(this, 'render'); 
       this.counter = 0;
+      this.render();
       //console.log(options)
       console.log(this.collection.toJSON())
-    },
-
-
-    makeJsColletion: function(options) {
-
     },
 
     render: function() {
       $(this.el).jstree({ 
       'core' : {
-        'data' : this.collection.models
+        'data' : this.collection.get_jstree()
       }, 
-      "plugins" : [ "contextmenu", "wholerow" ]
+      "plugins" : [ "wholerow" ],
     }); 
-    var ref = $(this.el).jstree(true);
-
-    $(this.el).on('select_node.jstree', function (e, data) {
-      console.log("Hello!")
-      console.log(e)
-      console.log(data)
-      console.log($(this.el))
-      //console.log(ref)
-      console.log(ref.get_selected())
-    });
-    
+    var ref = $(this.el).jstree(true);    
     }
 
   });

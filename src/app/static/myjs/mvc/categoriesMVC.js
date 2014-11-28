@@ -12,7 +12,6 @@
     url: "#",
     get_jstree: function() {
       var struc = []
-      //debugger;
       this.each(function(model) {
         var item = model.toJSON()
         item.id = item.idef;
@@ -61,32 +60,9 @@
         return items;
       };
 
-      console.log("PARSED")
-      console.log(this.collection.models)
-      /*        
-      "idef" : "metro",
-        "parent" : "com_trans",
-        "name" : "На метро",
-        "type": "gains",
-        "sum": 20,
-
-        "id" : "com_trans",
-        "parent" : "#",
-        "text" : "Транспорт",*/
-/*      debugger;
-      var parsed = JSON.parse(this.collection.models, function(k, v) {
-        if (k === "idef") 
-            this.id = v;
-        else if (k === "name")
-            this.text = v;
-        else
-            return v;
-      });
-*/      console.log("AFTER")
-
       $(this.el).jstree({ 
       'core' : {
-        'data' : this.collection.get_jstree()
+        'data' : this.collection.get_jstree(),
       },
       "plugins" : [ "contextmenu", "wholerow" ],
       contextmenu: {items: customMenu}
