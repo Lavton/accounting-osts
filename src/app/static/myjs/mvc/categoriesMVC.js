@@ -50,15 +50,84 @@
             createItem: {
               label: "Create",
               action: function() {console.log(node)}
+
             },
             renameItem: { // The "rename" menu item
                 label: "Rename",
-                action: function () {console.log(node)}
+                action: function () {
+                  console.log(node)
+                  var body = 
+                  '<input type="text" value="" id="node_name">\
+                  </input>';
+
+                  var footer = 
+                ' <button type="button" class="btn btn-primary rename" data-dismiss="modal">Rename</button> \
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+
+                  var RenameBody = Backbone.View.extend({
+                    initialize: function (options) {
+                      _.bindAll(this, 'render', 'unrender');
+                      this.options = $.extend({}, this.defaults, options);
+                      this.render();
+                    },
+
+                    render: function() {
+                      $(this.el).html(body);
+                      $("#node_name").val(categoryCollection.where({"indef": node.id})[0].get("name"));
+                      return this;
+                    },
+
+                    unrender: function(){
+                      $(this.el).remove();
+                      this.remove();
+                    }
+                  });
+
+
+                  var RenameFooter = Backbone.View.extend({
+                    events: {
+                      'click button.rename': function() {
+                        this.trigger("click:rename");
+                      }
+                    },
+
+                    initialize: function (options) {
+                      _.bindAll(this, 'render', 'unrender');
+                      this.options = $.extend({}, this.defaults, options);
+                      this.on("click:rename", function() {
+                        console.log($("#node_name").val())
+                        categoryCollection.where({"indef": node.id})[0].set({"name": $("#node_name").val()});
+                      }, this);
+                      this.render();
+                    },
+
+                    render: function() {
+                      $(this.el).html(footer);
+                      return this;
+                    },
+
+                    unrender: function(){
+                      $(this.el).remove();
+                      this.remove();
+                    }
+                  });
+
+                  $("#container-tmp").append("<div></div>")
+                  popwindow = new PopupView({
+                    el: $("div", $("#container-tmp")),
+                    body: RenameBody,
+                    footer: RenameFooter,
+                  });
+                }
+            },
+            abracadabraItem: {
+              label: "EEE",
+              action: function() {}
             },
             deleteItem: { // The "delete" menu item
                 label: "Delete",
                 action: function () {console.log(node)}
-            }
+            },
         };
         return items;
       };
