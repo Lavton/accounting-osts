@@ -6,12 +6,13 @@
 
   var List = Backbone.Collection.extend({
     model: Item,
-    get_jstree: function() {
+    get_jstree: function(type) {
       var struc = []
       this.each(function(model) {
         var item = model.toJSON()
         item.id = item.indef;
         item.text = item.name;
+        item.text += " "+"<i class="+type+">"+item.sum+"</i>"
         struc.push(item);
       })
       return struc;
@@ -227,7 +228,7 @@
     render: function() {
       $(this.el).jstree({ 
       'core' : {
-        'data' : this.collection.get_jstree()
+        'data' : this.collection.get_jstree("incomes")
       }, 
       "plugins" : [ "wholerow" ],
     }); 

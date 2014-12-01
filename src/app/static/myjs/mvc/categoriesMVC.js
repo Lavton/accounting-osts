@@ -10,13 +10,16 @@
   var CategoryCollection = Backbone.Collection.extend({
     model: CategoryModel,
     url: "#",
-    get_jstree: function() {
+    get_jstree: function(type) {
       var struc = []
       this.each(function(model) {
         var item = model.toJSON()
-        item.id = item.idef;
+        item.id = item.indef;
         item.text = item.name;
-        struc.push(item);
+        item.text += " "+"<i class="+type+">"+item.sum+"</i>"
+        if (item.type == type) {
+          struc.push(item);
+        }
       })
       return struc;
     }
@@ -59,24 +62,23 @@
         };
         return items;
       };
-
       $(this.el).jstree({ 
       'core' : {
-        'data' : this.collection.get_jstree(),
+        'data' : this.collection.get_jstree(this.options.type),
       },
       "plugins" : [ "contextmenu", "wholerow" ],
       contextmenu: {items: customMenu}
     }); 
     var ref = $(this.el).jstree(true);
-
-    $(this.el).on('select_node.jstree', function (e, data) {
+    //a.jstree-anchor
+/*    $(this.el).on('select_node.jstree', function (e, data) {
       console.log(e)
       console.log(data)
       console.log($(this.el))
       //console.log(ref)
       console.log(ref.get_selected())
     });
-    
+*/    
     }
 
   });

@@ -11,3 +11,10 @@
 .vakata-context.jstree-contextmenu {
 	z-index: 1100;
 }
+i.gains {
+	color: red;
+}
+
+i.incomes {
+	color: green;
+}

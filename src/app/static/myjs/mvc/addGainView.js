@@ -1,4 +1,7 @@
 (function() {
+  var gainViewFrom = null;
+  var gainViewTo = null;
+  var sum = 0;
 
   var body = 
   '<input type="text" value="" id="num_gain">\
@@ -36,24 +39,13 @@
 
     render: function() {
       $(this.el).html(body);
-      var gainViewFrom = new BillJsTreeView({el: $("#from_g"),
+      gainViewFrom = new BillJsTreeView({el: $("#from_g"),
         collection: collection,
       });
-
-      var gainViewFrom = new CategoriesView({el: $("#from_g"),
-      cCollection: categoryCollection,});
-
-/*      var gainViewFrom = new BillListView({
-        el: $("#from_g"),
-        collection: collection,
-        view: BillClickView
+      gainViewTo = new CategoriesView({el: $("#to_g"),
+        cCollection: categoryCollection,
+        type: "gains"
       });
-*/      var gainViewTo = new CategoriesView({el: $("#to_g"),
-      cCollection: categoryCollection,
-    });
-
-//      gainViewFrom.setCollection(categoryCollection);
-      //gainViewTo.setCollection(categoryCollection);
       return this;
     },
 
@@ -75,6 +67,19 @@
     initialize: function (options) {
       _.bindAll(this, 'render', 'unrender');
       this.options = $.extend({}, this.defaults, options);
+      this.on("click:add", function() {
+        var from = $("#from_g").jstree(true);
+        var from_id = from.get_selected()[0];
+        var to = $("#to_g").jstree(true);
+        var from_id = from.get_selected()[0];
+        var to_id = to.get_selected()[0];
+        sum = $("#num_gain").val()*1;
+        var mod_from = gainViewFrom.collection.where({"indef": from_id})[0];
+        var mod_to = gainViewTo.collection.where({"indef": to_id})[0];
+
+        mod_from.set({"sum": (mod_from.get("sum") - sum)})
+        mod_to.set({"sum": (mod_to.get("sum") + sum)})
+      }, this);
       this.render();
     },
 
