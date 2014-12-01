@@ -8,7 +8,7 @@
         this.gainView = new CategoriesView({
           el: $("#gains-div"),
           cCollection: categoryCollection,
-          type:'g'
+          type:'gains'
         });
     },
   
