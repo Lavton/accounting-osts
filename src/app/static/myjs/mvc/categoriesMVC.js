@@ -1,6 +1,6 @@
 (function(){
   $.jstree.defaults.core.multiple = false;
-
+  this.ref_jstree = null
   var CategoryModel = Backbone.Model.extend({
     parse: function(resp) {
       return resp;
@@ -37,18 +37,17 @@
       _.bindAll(this, 'render'); 
       this.counter = 0;
 
-      $("body").on("click:close", function() {
-        console.log("YEEEEEEEEEEEEEEEEEEEE")
+      this.on("click:close", function() {
         this.render();
       });
-      console.log("initialize")
-      console.log(options)
       this.render();
     },
 
+    
 
     render: function() {
 
+      var self = this;
       function customMenu(node) {
         // The default set of all items
         var items = {
@@ -102,7 +101,7 @@
                       this.on("click:rename", function() {
                         console.log($("#node_name").val())
                         categoryCollection.where({"indef": node.id})[0].set({"name": $("#node_name").val()});
-                        $("body").trigger("click:close");
+                        self.trigger("click:close");
                       }, this);
                       this.render();
                     },
@@ -137,14 +136,18 @@
         };
         return items;
       };
+      if (this.ref_jstree != null) {
+        $(this.el).jstree("destroy");
+        $(this.el).html("");
+      }
       $(this.el).jstree({ 
       'core' : {
         'data' : this.collection.get_jstree(this.options.type),
       },
       "plugins" : [ "contextmenu", "wholerow" ],
       contextmenu: {items: customMenu}
-    }); 
-    var ref = $(this.el).jstree(true);
+      }); 
+      this.ref_jstree = $(this.el).jstree(true);
     //a.jstree-anchor
 /*    $(this.el).on('select_node.jstree', function (e, data) {
       console.log(e)
