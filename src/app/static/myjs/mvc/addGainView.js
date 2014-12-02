@@ -94,6 +94,7 @@
     unrender: function(){
       $(this.el).remove();
       this.remove();
+      $("body").trigger("close:adding")
     }
   });
 

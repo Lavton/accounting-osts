@@ -198,9 +198,25 @@
                   });
                 }
             },
-            abracadabraItem: {
-              label: "EEE",
-              action: function() {}
+            addItem: {
+              label: "Add " + categoryCollection.where({"indef": node.id})[0].get("type"),
+              action: function() {
+                categoryCollection.where({"indef": node.id})[0].set({"state": {
+                  selected: true,
+                }})
+                $("#container-tmp").append("<div></div>")
+                popwindow = new PopupView({
+                  el: $("div", $("#container-tmp")),
+                  body: (categoryCollection.where({"indef": node.id})[0].get("type") == "gains") ? AddGainBody : AddIncomeBody,
+                  footer: (categoryCollection.where({"indef": node.id})[0].get("type") == "gains") ? AddGainFooter : AddIncomeFooter,
+                });
+                categoryCollection.where({"indef": node.id})[0].set({"state": {
+                  selected: false,
+                }})
+                $("body").on("close:adding", function() {
+                  self.trigger("click:close");
+                });
+              }
             },
             deleteItem: { // The "delete" menu item
                 label: "Delete",
