@@ -131,7 +131,22 @@
             },
             deleteItem: { // The "delete" menu item
                 label: "Delete",
-                action: function () {console.log(node)}
+                action: function () {
+                  if (node.parent != "#") {
+                    var queue = []
+                    node.children.forEach(function(item, i, arr) {queue.push(item)})
+                    categoryCollection.remove(categoryCollection.where({"indef": node.id})[0])
+
+                    while (queue.length != 0) {
+                      var new_id = queue.shift()
+                      var new_node = self.ref_jstree.get_node(new_id);
+                      new_node.children.forEach(function(item, i, arr) {queue.push(item)})
+                      categoryCollection.remove(categoryCollection.where({"indef": new_node.id})[0])
+                    }
+
+                    self.trigger("click:close")
+                  }
+                  console.log(node)}
             },
         };
         return items;
