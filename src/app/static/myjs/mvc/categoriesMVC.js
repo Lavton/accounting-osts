@@ -95,7 +95,7 @@
                       this.options = $.extend({}, this.defaults, options);
                       this.on("click:create", function() {
                         var new_node = {
-                          "indef" :  (new Date()).getTime(),
+                          "indef" :  (new Date()).getTime() + "",
                           "parent" : node.id,
                           "name" : $("#node_name").val(),
                           "type" : categoryCollection.where({"indef": node.id})[0].get("type"),
