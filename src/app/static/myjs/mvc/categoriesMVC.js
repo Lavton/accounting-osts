@@ -53,7 +53,80 @@
         var items = {
             createItem: {
               label: "Create",
-              action: function() {console.log(node)}
+              action: function() {
+                  console.log(node)
+                  var body = 
+                  '<input type="text" value="" id="node_name">\
+                  </input> name';
+
+                  var footer = 
+                ' <button type="button" class="btn btn-primary create" data-dismiss="modal">Create</button> \
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+
+                  var CreateBody = Backbone.View.extend({
+                    initialize: function (options) {
+                      _.bindAll(this, 'render', 'unrender');
+                      this.options = $.extend({}, this.defaults, options);
+                      this.render();
+                    },
+
+                    render: function() {
+                      $(this.el).html(body);
+                      // $("#node_name").val(categoryCollection.where({"indef": node.id})[0].get("name"));
+                      return this;
+                    },
+
+                    unrender: function(){
+                      $(this.el).remove();
+                      this.remove();
+                    }
+                  });
+
+
+                  var CreateFooter = Backbone.View.extend({
+                    events: {
+                      'click button.create': function() {
+                        this.trigger("click:create");
+                      }
+                    },
+
+                    initialize: function (options) {
+                      _.bindAll(this, 'render', 'unrender');
+                      this.options = $.extend({}, this.defaults, options);
+                      this.on("click:create", function() {
+                        var new_node = {
+                          "indef" :  (new Date()).getTime(),
+                          "parent" : node.id,
+                          "name" : $("#node_name").val(),
+                          "type" : categoryCollection.where({"indef": node.id})[0].get("type"),
+                          "sum" : 0,
+                        }
+                        categoryCollection.add(new_node);
+                        self.trigger("click:close");
+                      }, this);
+                      this.render();
+                    },
+
+                    render: function() {
+                      $(this.el).html(footer);
+                      return this;
+                    },
+
+                    unrender: function(){
+                      $(this.el).remove();
+                      this.remove();
+                    }
+                  });
+
+                  $("#container-tmp").append("<div></div>")
+                  popwindow = new PopupView({
+                    el: $("div", $("#container-tmp")),
+                    body: CreateBody,
+                    footer: CreateFooter,
+                  });
+
+
+              }
 
             },
             renameItem: { // The "rename" menu item
@@ -62,7 +135,7 @@
                   console.log(node)
                   var body = 
                   '<input type="text" value="" id="node_name">\
-                  </input>';
+                  </input> name';
 
                   var footer = 
                 ' <button type="button" class="btn btn-primary rename" data-dismiss="modal">Rename</button> \
