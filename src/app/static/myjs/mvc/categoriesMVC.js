@@ -36,6 +36,11 @@
       this.collection = this.options.cCollection
       _.bindAll(this, 'render'); 
       this.counter = 0;
+
+      $("body").on("click:close", function() {
+        console.log("YEEEEEEEEEEEEEEEEEEEE")
+        this.render();
+      });
       console.log("initialize")
       console.log(options)
       this.render();
@@ -97,6 +102,7 @@
                       this.on("click:rename", function() {
                         console.log($("#node_name").val())
                         categoryCollection.where({"indef": node.id})[0].set({"name": $("#node_name").val()});
+                        $("body").trigger("click:close");
                       }, this);
                       this.render();
                     },
