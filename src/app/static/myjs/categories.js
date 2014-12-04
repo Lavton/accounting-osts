@@ -14,78 +14,18 @@
           "name" : "Приобретения",
           "type" : "gains",
           "sum" : 0,
-          "state" : {
-            "opened"    : true  // is the node open
-          },
+          "opened"    : true  // is the node open
         },
-
-        {
-        "indef" : "com_trans",
-        "parent" : "gains",
-        "name" : "Транспорт",
-        "icon":"http://jstree.com/tree.png",
-        "type": "gains",
-        "sum": 0
-        },
-        {
-        "indef" : "food",
-        "parent" : "gains",
-        "name" : "Еда",
-        "type": "gains",
-        "sum": 0
-
-        },
-        {
-        "indef" : "trans_car",
-        "parent" : "com_trans",
-        "name" : "На бензин",
-        "type": "gains",
-        "sum": 0
-        },
-        {
-        "indef" : "metro",
-        "parent" : "com_trans",
-        "name" : "На метро",
-        "type": "gains",
-        "sum": 0
-        },
-
-
         {
           "indef" : "incomes",
           "parent" : "#",
           "name" : "Доходы",
           "type" : "incomes",
           "sum" : 0,
-          "state" : {
-            "opened"    : true  // is the node open
-          },
+          "opened"    : true  // is the node open
 
         },
 
-        {
-        "indef" : "salary",
-        "parent" : "incomes",
-        "name" : "Зарплата",
-        "icon":"http://jstree.com/tree.png",
-        "type": "incomes",
-        "sum": 0
-        },
-        {
-        "indef" : "reps",
-        "parent" : "incomes",
-        "name" : "Репетиторство",
-        "type": "incomes",
-        "sum": 0
-
-        },
-        {
-        "indef" : "prems",
-        "parent" : "salary",
-        "name" : "На бензин",
-        "type": "incomes",
-        "sum": 0
-        },
 
       ]
        Controller.makeCollection();

@@ -13,7 +13,9 @@
         item.id = item.indef;
         item.text = item.name;
         item.text += " "+"<i class="+type+">"+item.sum+"</i>"
-        struc.push(item);
+        if (item.visible*1 == 1) {
+          struc.push(item);
+        }
       })
       return struc;
     }

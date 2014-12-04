@@ -17,6 +17,13 @@
         item.id = item.indef;
         item.text = item.name;
         item.text += " "+"<i class="+type+">"+item.sum+"</i>"
+        if (item.opened == true) {
+          if (item.state == null){
+            item.state = {}
+          }
+          item.state.opened = true          
+        }
+
         if (item.type == type) {
           struc.push(item);
         }
@@ -201,7 +208,8 @@
             addItem: {
               label: "Add " + categoryCollection.where({"indef": node.id})[0].get("type"),
               action: function() {
-                categoryCollection.where({"indef": node.id})[0].set({"state": {
+                var res = categoryCollection.where({"indef": node.id})[0]
+                res.set({"state": {
                   selected: true,
                 }})
                 $("#container-tmp").append("<div></div>")

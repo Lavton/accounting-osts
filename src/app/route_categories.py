@@ -8,15 +8,22 @@ from flask import Flask, render_template, jsonify, session, redirect, url_for, e
 @app.route('/category', methods=['POST'])
 @requires_auth
 def category_post():
+
     username = get_user()
     indef = request.form.get('indef', None)
+    parent = request.form.get('parent', "#")
     name = request.form.get('name', None)
+    cat_type = request.form.get('type', None)
     summa = request.form.get('sum', None, type=int)
-    category = {"user": username,
+    opened = request.form.get('opened', False, type=bool)
+    category = {
+            "user": username,
             "indef": indef,
             "name": name,
-            "visible": 1,
-            "sum": summa}
+            "type": cat_type,
+            "sum": summa,
+            "opened": opened
+            }
     if not indef and not name and not summa:
         return jsonify(result="Fail")
     categories_db.insert(category)
@@ -30,6 +37,31 @@ def category_get():
         record.pop("_id", None)
         d[record["indef"]] = record
     app.logger.debug(d)
+    if not d:
+        default_data = {
+        "gains": {
+            "indef" : "gains",
+            "parent" : "#",
+            "name" : "Приобретения",
+            "type" : "gains",
+            "sum" : 0,
+            "opened": True
+        },
+        "incomes": {
+            "indef" : "incomes",
+            "parent" : "#",
+            "name" : "Доходы",
+            "type" : "incomes",
+            "sum" : 0,
+            "opened"    : True 
+        }}
+        d = default_data
+        for indef in default_data:
+            category = {"user": get_user()}
+            for cat_field in default_data[indef]:
+                category[cat_field] = default_data[indef][cat_field]
+            categories_db.insert(category)
+
     return jsonify(**d)
 
 
@@ -46,8 +78,6 @@ def category_put():
         category["name"] = request.form.get("name")
     if "sum" in request.form:
         category["sum"] = request.form.get("sum", type=int)
-    if "visible" in request.form:
-        category["visible"] = request.form.get("visible", type=int)
 
     categories_db.update(req, {"$set": category})
     return jsonify(result="Success")
