@@ -4,6 +4,9 @@
   var Controller = {
 
     makePage: function() {
+      var self = this;
+      window.CategoryController.getCategoryCollection(function () {
+
       $("#container").append("<div id='home-div'></div>");
       this.homeView = new HomeView({
         el: $("#home-div"),
@@ -22,6 +25,7 @@
           $("#num_gain").val("");
         }
       });
+            });
     },
   
     cleanPage: function() {

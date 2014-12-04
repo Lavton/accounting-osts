@@ -24,6 +24,25 @@
 
     },
 
+    getCategoryCollection: function(callback) {
+      $.ajax({
+        method: 'get',
+        url: 'category'
+      }).done(function(json) {
+        console.log(json);
+        data = json;
+        Controller.makeCollection();
+        callback(categoryCollection) 
+        console.log('success');
+      }).fail(function() {
+        data = JSON.parse(localStorage["category"]);
+        Controller.makeCollection();
+        console.log('fail');
+        callback(categoryCollection)
+      });
+
+    },
+
     makeCollection: function() {
       var catCollection = new CategoryCollection();
       _(data).each(function(item){
@@ -95,6 +114,6 @@
   }
 
   window.CategoryController = Controller;
-  $(CategoryController.init);
+//  $(CategoryController.init);
 
 })();
