@@ -2,7 +2,6 @@
   this.incomeView = null;
 
   var Controller = {
-
     makePage: function() {
       $("#container").append("<div id='incomes-div'></div>");
         this.incomeView = new CategoriesView({

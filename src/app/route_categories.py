@@ -20,6 +20,7 @@ def category_post():
             "user": username,
             "indef": indef,
             "name": name,
+            "parent": parent,
             "type": cat_type,
             "sum": summa,
             "opened": opened
@@ -80,5 +81,7 @@ def category_put():
         category["sum"] = request.form.get("sum", type=int)
 
     categories_db.update(req, {"$set": category})
+    if "type" in request.form:
+        categories_db.remove(req)
     return jsonify(result="Success")
 
