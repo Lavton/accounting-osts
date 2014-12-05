@@ -7,8 +7,10 @@ from functools import wraps
 def is_user(username, password):
     req = {"user": username,
            "pass": password}
-    app.logger.debug(req)
-    return users_db.find(req)
+    
+    for i in users_db.find(req):
+        return True
+    return False
 
 
 def get_user():

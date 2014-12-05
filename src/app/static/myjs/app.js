@@ -27,7 +27,7 @@ BaseExtended.prototype = $.extend({}, Base.prototype, {
       var currentPage = WhatPageEnum.HOME;
 
       cleanPage = function(){
-        $(".main-menu>li").removeClass("active");
+        $(".navbar-nav>li").removeClass("active");
         switch (currentPage) {
           case WhatPageEnum.BILLS:            
             BillsPage.cleanPage();
@@ -55,7 +55,8 @@ BaseExtended.prototype = $.extend({}, Base.prototype, {
           "gains": "gainsAction",
           "incomes": "incomesAction",
           "about": "aboutAction",
-          "bills": "billsAction"
+          "bills": "billsAction",
+          "logout": "logoutAction"
         },
 
         homeAction: function() {
@@ -91,6 +92,11 @@ BaseExtended.prototype = $.extend({}, Base.prototype, {
           $(".route-incomes").addClass("active");
           IncomesPage.makePage();
           currentPage = WhatPageEnum.INCOMES;
+        },
+
+        logoutAction: function() {
+          //here shoould be something more abstract
+          window.location = "http://127.0.0.1:5000/logout";
         }
 
 

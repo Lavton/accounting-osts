@@ -9,7 +9,7 @@
         collection: collection,
         view: BillEditView,
         selector: function(model) {
-          return model.get("visible");
+          return model.get("visible") != 0;
         }
       });
       listView = this.listView;

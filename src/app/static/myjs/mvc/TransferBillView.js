@@ -57,7 +57,10 @@
       this.listView = new ListView({
         el: $(".table", $(this.el)),
         collection: this.options.collection,
-        view: BillClickView
+        view: BillClickView,
+        selector: function(model) {
+          return model.get("visible") != 0;
+        }
       });
       this.listView.on("click:select", function(newTarget) {
         this.target = newTarget;
