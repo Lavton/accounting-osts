@@ -76,10 +76,10 @@
         sum = $("#num_gain").val()*1;
         var mod_from = gainViewFrom.collection.where({"indef": from_id})[0];
         console.log(mod_to);
-        mod_from.set({"sum": (mod_from.get("sum") - sum)})
+        mod_from.set({"sum": (1*mod_from.get("sum") - sum)})
         while (to_id != "#") {
           var mod_to = gainViewTo.collection.where({"indef": to_id})[0];
-          mod_to.set({"sum": (mod_to.get("sum") + sum)})
+          mod_to.set({"sum": (1*mod_to.get("sum") + sum)})
           to_id = mod_to.get("parent");
         }
       }, this);

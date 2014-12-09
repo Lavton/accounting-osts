@@ -26,7 +26,7 @@
         sum = $(".sum", $(this.el)).val();
         if(name && sum != undefined)
           this.options.listView.addItem({
-            indef: (new Date()).getTime(),
+            indef: (new Date()).getTime()+"",
             name: name,
             sum: sum
           });

@@ -68,10 +68,10 @@
         var bill_id = bill.get_selected()[0];
         sum = $("#num_income").val()*1;
         var mod_bill = incomeViewBill.collection.where({"indef": bill_id})[0];
-        mod_bill.set({"sum": (mod_bill.get("sum") + sum)})
+        mod_bill.set({"sum": (1*mod_bill.get("sum") + sum)})
         while (cat_id != "#") {
           var mod_cat = incomeViewCat.collection.where({"indef": cat_id})[0];
-          mod_cat.set({"sum": (mod_cat.get("sum") + sum)})
+          mod_cat.set({"sum": (1*mod_cat.get("sum") + sum)})
           cat_id = mod_cat.get("parent");
         }
         //debugger;

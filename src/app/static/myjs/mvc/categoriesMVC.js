@@ -16,7 +16,7 @@
         var item = model.toJSON()
         item.id = item.indef;
         item.text = item.name;
-        if (item.sum > 0) {
+      if (item.sum > 0) {
           item.text += " "+"<i class="+type+">"+item.sum+"</i>"
         }
         if (item.opened == true) {
@@ -262,15 +262,6 @@
       contextmenu: {items: customMenu}
       }); 
       this.ref_jstree = $(this.el).jstree(true);
-    //a.jstree-anchor
-/*    $(this.el).on('select_node.jstree', function (e, data) {
-      console.log(e)
-      console.log(data)
-      console.log($(this.el))
-      //console.log(ref)
-      console.log(ref.get_selected())
-    });
-*/    
     }
 
   });

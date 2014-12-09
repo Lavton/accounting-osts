@@ -13,7 +13,7 @@
         item.id = item.indef;
         item.text = item.name;
         item.text += " "+"<i class="+type+">"+item.sum+"</i>"
-        if (item.visible*1 == 1) {
+        if (item.visible*1 != 0) {
           struc.push(item);
         }
       })
