@@ -16,7 +16,9 @@
         var item = model.toJSON()
         item.id = item.indef;
         item.text = item.name;
-        item.text += " "+"<i class="+type+">"+item.sum+"</i>"
+        if (item.sum > 0) {
+          item.text += " "+"<i class="+type+">"+item.sum+"</i>"
+        }
         if (item.opened == true) {
           if (item.state == null){
             item.state = {}
