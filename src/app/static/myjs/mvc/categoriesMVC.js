@@ -155,11 +155,14 @@
                       _.bindAll(this, 'render', 'unrender');
                       this.options = $.extend({}, this.defaults, options);
                       this.render();
+
                     },
 
                     render: function() {
                       $(this.el).html(body);
                       $("#node_name").val(categoryCollection.where({"indef": node.id})[0].get("name"));
+                      $("#node_name").select();
+
                       return this;
                     },
 
