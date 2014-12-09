@@ -7,7 +7,10 @@ from functools import wraps
 def is_user(username, password):
     req = {"user": username,
            "pass": password}
-    
+    if not users_db.count():
+        req = {"user": "user",
+               "pass": "password"}
+        users_db.insert(req)
     for i in users_db.find(req):
         return True
     return False
