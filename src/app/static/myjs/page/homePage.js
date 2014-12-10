@@ -19,7 +19,7 @@
           body: AddGainBody,
           footer: AddGainFooter,
         });
-        if (!isNaN(g) && (g > 0)) {
+        if (!isNaN(g) && (g*1 > 0)) {
           $("#num_gain").val(g);
         } else {
           $("#num_gain").val("");

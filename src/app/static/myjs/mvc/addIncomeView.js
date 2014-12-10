@@ -66,8 +66,19 @@
         var bill = $("#bill").jstree(true);
         var cat_id = cat.get_selected()[0];
         var bill_id = bill.get_selected()[0];
-        sum = $("#num_income").val()*1;
+        sum = $("#num_income").val();
         var mod_bill = incomeViewBill.collection.where({"indef": bill_id})[0];
+        if (isNaN(sum) || (sum == "") ||(sum*1 < 0)) {
+          sum = 0;
+          alert("Bad sum. Try again")
+        }
+        if (mod_bill == null) {
+          alert("bill not selected")
+        }
+        if (cat_id == null) {
+          alert("category not selected")
+        }
+
         mod_bill.set({"sum": (1*mod_bill.get("sum") + sum)})
         while (cat_id != "#") {
           var mod_cat = incomeViewCat.collection.where({"indef": cat_id})[0];

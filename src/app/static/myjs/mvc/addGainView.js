@@ -73,8 +73,18 @@
         var to = $("#to_g").jstree(true);
         var from_id = from.get_selected()[0];
         var to_id = to.get_selected()[0];
-        sum = $("#num_gain").val()*1;
+        sum = $("#num_gain").val();
+        if (isNaN(sum) || (sum == "") ||(sum*1 < 0)) {
+          sum = 0;
+          alert("Bad sum. Try again")
+        }
         var mod_from = gainViewFrom.collection.where({"indef": from_id})[0];
+        if (mod_from == null) {
+          alert("bill not selected")
+        }
+        if (to_id == null) {
+          alert("category not selected")
+        }
         console.log(mod_to);
         mod_from.set({"sum": (1*mod_from.get("sum") - sum)})
         while (to_id != "#") {

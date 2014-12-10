@@ -250,6 +250,13 @@
                   }
                   console.log(node)}
             },
+            zeroizeItem: { // The "delete" menu item
+                label: "Zeroize",
+                action: function () {
+                  categoryCollection.where({"indef": node.id})[0].set({"sum": 0})
+                    self.trigger("click:close")
+                  console.log(node)}
+            },
         };
         return items;
       };
